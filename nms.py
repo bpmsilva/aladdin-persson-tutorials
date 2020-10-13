@@ -1,5 +1,5 @@
 """
-Non max suppresion implementation from Aladdin Persson's YouTube channel
+Non-max suppresion implementation from Aladdin Persson's YouTube channel
 """
 import torch
 from iou import intersect_over_union
@@ -11,7 +11,7 @@ def nms(
     box_format='corners'
 ):
     """
-    Do non max supression on all bounding boxes
+    Do non-max supression on all bounding boxes
     bboxes = [[class, prob, x1, y1, x2, y2], ...]
     """
     assert isinstance(bboxes, list)
