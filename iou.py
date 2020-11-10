@@ -52,15 +52,15 @@ def intersect_over_union(pred_boxes, label_boxes, box_format="corners"):
     # intersection
     x_1 = torch.max(box1_x1, box2_x1)
     y_1 = torch.max(box1_y1, box2_y1)
-    x_2 = torch.max(box1_x2, box2_x2)
-    y_2 = torch.max(box1_y2, box2_y2)
+    x_2 = torch.min(box1_x2, box2_x2)
+    y_2 = torch.min(box1_y2, box2_y2)
 
     # .clamp(0) is for the case when they do not intersect
     intersection = (x_2 - x_1).clamp(0) * (y_2 - y_1).clamp(0)
 
     # union
-    box1_area = (box1_x2 - box1_x1) * (box1_y1 - box1_y2)
-    box2_area = (box2_x2 - box2_x1) * (box2_y1 - box2_y2)
+    box1_area = (box1_x2 - box1_x1) * (box1_y2 - box1_y1)
+    box2_area = (box2_x2 - box2_x1) * (box2_y2 - box2_y1)
     union = box1_area + box2_area - intersection
 
     return intersection / (union + 1e-6)
